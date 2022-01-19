@@ -1,21 +1,49 @@
 import React from "react";
-import ProposalCard from "../Components/Request";
+import AccommodationCard from "../Components/AccommodationCard";
 
 function SearchPage()
 {
     const accommodations = [
-        { name : "request 1", description : 'This is the description 1' },
-        { name : "request 2", description : 'This is the description 2' },
-        { name : "request 3", description : 'This is the description 3' }
+        {
+            id : 0, 
+            name : "Lorem Ipsum is simply dummy text of the printing", 
+            description : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            images : ['https://via.placeholder.com/150' , 'https://via.placeholder.com/150', 'https://via.placeholder.com/150'],  
+            location : "Manizales/Caldas",
+            priceFrom : 3800,
+            reviews : 300,
+            rating : 10
+        },
+        {
+            id : 1, 
+            name : "Lorem Ipsum is simply dummy text of the printing", 
+            description : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            images : ['https://via.placeholder.com/150' , 'https://via.placeholder.com/150', 'https://via.placeholder.com/150'],  
+            location : "Manizales/Caldas",
+            priceFrom : 3800,
+            reviews : 300,
+            rating : 10
+        },
+        {
+            id : 2, 
+            name : "Lorem Ipsum is simply dummy text of the printing", 
+            description : "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            images : [ 'https://via.placeholder.com/150' , 'https://via.placeholder.com/150', 'https://via.placeholder.com/150'],  
+            location : "Manizales/Caldas",
+            priceFrom : 3800,
+            reviews : 300,
+            rating : 10
+        }
       ]
 
     return (
     <div>
         <h1>Search page</h1>
         <div className="accom-container">
-        { accommodations.map(rq => <ProposalCard request={rq}/>) }
+        <input type="text" placeholder="Search by location or property name" />
+        { accommodations.map(rq => <AccommodationCard accommodation={rq}/>) }
         </div>
     </div>)
 }
 
-export default RequestPage;
+export default SearchPage;

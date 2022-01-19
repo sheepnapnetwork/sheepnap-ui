@@ -1,25 +1,27 @@
 import React from "react";
 
 function ProposalCard({ request }) {
-    
+
     const handleVote = () =>
     {
-
-    }
-
-    const leaveComment =() => {
-
+        
     }
 
     return (<div>
         <div><b>{ request.name }</b></div>
         <div>{ request.description }</div>
+        <div>
+            Comments : { request.comments }
+        </div>
 
-        <button onClick={handleVote}>Yes</button>
-        <button onClick={handleVote}>No</button>
+        <div>
+            <h3>Information</h3>
+            yes : { request.voteyes }
+            no : { request.voteyes }
+            Total Votes : { request.totalvotes  }
+            End Date : { request.endDate }
+        </div>
         <br/>
-        <input type="text" />
-        <button onClick={leaveComment}>Leave comment</button>
         <hr/>
     </div>)
 }

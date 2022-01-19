@@ -1,19 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import Web3 from "web3";
 import { Link } from "react-router-dom";
 import RequestPage from "../Routes/RequestPage";
 
-function Header()
+function Layout({ wallet, setWallet })
 {
-    const [wallet, setWallet] = useState("...");
-
     return (<div>
         <h1>Sheepnap Menu</h1>
             <div className="wallet-connection">
                 <button onClick={connect}>Connect metamask wallet</button>
                 <p>{wallet}</p>
             </div>
-            <Link to="/request" element={<RequestPage/>}>Approval requests</Link> | {" "}
+            <Link to="/">Home</Link> | {" "}
+            <Link to="/request" element={<RequestPage wallet={wallet}/>}>Approval requests</Link> | {" "}
             <Link to="/badges">Badges</Link> | {" "}
             <Link to="/search">Search</Link> | {" "}
             <Link to="/mybookens">Bookens</Link> 
@@ -28,9 +27,10 @@ function Header()
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
+            
             window.alert("Non-Ethereum browser detected. You should consider trying MetaMask!");
         }
     }
 }
 
-export default Header;
+export default Layout;
