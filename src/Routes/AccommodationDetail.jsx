@@ -8,6 +8,10 @@ function AccommodationDetailPage({ accommodation })
     { 
         name : "Accommodation name", 
         description : 'This is the description 1',
+        images : [
+            "https://via.placeholder.com/300",
+            "https://via.placeholder.com/300",
+        ],
         bookens : [
             {
                 roomName : 'Room Name',
@@ -49,6 +53,9 @@ function AccommodationDetailPage({ accommodation })
             <p>
                 {accomodationDetail.description}
             </p>
+        </div>
+        <div>
+            { accomodationDetail.images.map(img => <img src ={ im } />) }
         </div>
         <h3>Bookens</h3>
         <div>

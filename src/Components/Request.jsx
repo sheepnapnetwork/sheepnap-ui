@@ -2,11 +2,6 @@ import React from "react";
 
 function ProposalCard({ request }) {
 
-    const handleVote = () =>
-    {
-        
-    }
-
     return (<div>
         <div><b>{ request.name }</b></div>
         <div>{ request.description }</div>

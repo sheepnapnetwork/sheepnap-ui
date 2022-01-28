@@ -15,7 +15,10 @@ function Layout({ wallet, setWallet })
             <Link to="/request" element={<RequestPage wallet={wallet}/>}>Approval requests</Link> | {" "}
             <Link to="/badges">Badges</Link> | {" "}
             <Link to="/search">Search</Link> | {" "}
-            <Link to="/mybookens">Bookens</Link> 
+            <Link to="/mybookens">My Bookens</Link> | {" "}
+            <Link to="/createaccommodation">Create Accommodation</Link> | {" "}
+            <Link to="/emitbooken">Emit Booken</Link> | {" "}
+            <hr/>
         </div>)
 
     async function connect() 
