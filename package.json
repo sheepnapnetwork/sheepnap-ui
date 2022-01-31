@@ -14,7 +14,6 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "4.0.3",
     "solc": "^0.8.10",
-    "truffle": "^5.4.23",
     "web-vitals": "^1.1.2",
     "web3": "^1.6.1"
   },

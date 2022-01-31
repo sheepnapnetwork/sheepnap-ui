@@ -55,7 +55,7 @@ function AccommodationDetailPage({ accommodation })
             </p>
         </div>
         <div>
-            { accomodationDetail.images.map(img => <img src ={ im } />) }
+            { accomodationDetail.images.map(img => <img src ={ img } />) }
         </div>
         <h3>Bookens</h3>
         <div>
