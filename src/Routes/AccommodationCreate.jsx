@@ -1,82 +1,103 @@
 import React, { useState } from "react";
 import PropertyAbi from "../abis/Property.json";
+import WoolToken from "../abis/WoolToken.json";
 import SheepnapDAO from "../abis/SheepnapDAO.json";
+import config from "../config.json";
 
 function AccommodationCreate({ account }) {
     const [addresscontract, setAddressContract] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
 
-    const createAccommodation = async () => 
-    {
+    const createAccommodation = async () => {
+
+        if (!account) {
+            alert("please connect your wallet");
+            return;
+        }
+
         var contract = new window.web3.eth.Contract(PropertyAbi.abi);
         var gasPrice = await window.web3.eth.getGasPrice();
         var latestBlock = await window.web3.eth.getBlock("latest");
         var gasLimit = latestBlock.gasLimit;
 
         //Contract deployment
-        var propertycontract = await contract.deploy({
-                data: PropertyAbi.bytecode,
-                arguments: []
-            })
-            .on('transactionHash', function (hash) {
-                alert("Transaction has been sent " + hash);
-            })
-            .send({
-                from: account,
-                gasprice: gasPrice,
-                gas: gasLimit,
-            })
-            .on('confirmation', function (confirmationNumber, receipt) 
-            {    
-                setAddressContract(propertycontract);
-                fetch(url, {
+        contract.deploy({
+            data: PropertyAbi.bytecode,
+            arguments: []
+        }).send({
+            from: account,
+            gasprice: gasPrice,
+            gas: gasLimit,
+        })
+            .then((propertyContract) => {
+                alert("transaction has been confirmed");
+                setAddressContract(propertyContract._address);
+                console.log(propertyContract._address);
+                fetch(config.endpoint + "/property/addproperty", {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        'address': addresscontract,
+                        'address': propertyContract._address,
                         'name': name,
                         'description': description,
                     })
-                })
-                .then(function () {
-                    alert("");
-                })
-                .catch(function () {
-                    // handle the error
+                }).then(() => {
+                    alert("Property saved in database");
+                    approveDAOTransfer(propertyContract._address);
                 });
+            })
+    }
 
-                alert("transaction has been confirmed")
+    const approveDAOTransfer = async (propertyAddress) => {
+
+        //approve transfer
+        const woolToken = new window.web3.eth.Contract(WoolToken.abi, config.wooltoken);
+
+        woolToken.methods.approve(propertyAddress, 100)
+            .send({ from: account })
+            .on('transactionHash', (hash) => {
+                console.log(hash);
+            }).then(() => {
+                alert("approved");
+                emitApprovalRequest(propertyAddress);
             });
     }
 
-    const createApprovalRequest = () =>
-    {
-        var item = {
-            from: user[0],
-            gasprice: gas,
-            gaslimit: response.gasLimit,
-          };
+    const emitApprovalRequest = async (propertyAddress) => {
+        //TODO : repeated code.
+        var gasPrice = await window.web3.eth.getGasPrice();
+        var latestBlock = await window.web3.eth.getBlock("latest");
+        var gasLimit = latestBlock.gasLimit;
 
-        //TODO : _addressContract from config
+        var item = {
+            from: account,
+            gasprice: gasPrice,
+            gaslimit: gasLimit,
+        };
+
         const contract = new window.web3.eth.Contract(
             SheepnapDAO.abi,
-            _addressContract
-          );
+            config.daocontract
+        );
 
-          contract.methods
-            .approvalRequest()
+        contract.methods
+            .approvalRequest(propertyAddress)
             .send(item)
             .on("transactionHash", (hash) => {
-              alert("Successful payment");
+                alert("Transaction sent");
             })
-            .on('confirmation', function (confirmationNumber, receipt) 
-            {
+            .on('error', function (error) {
+                alert(error);
+                console.log(error);
+            })
+            .on('confirmation', function (confirmationNumber, receipt) {
                 alert("Your approval request has been uploaded");
-            });        
+                //TODO : upload it in database
+            });
     }
 
     return (
@@ -102,18 +123,18 @@ function AccommodationCreate({ account }) {
                     - Contact number
                 </p>
             </p>
-            Accommodation name : <input type="text" value={ name } /><br />
+            Accommodation name : <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} /><br />
 
-            <textarea
+            <textarea onChange={(evt) => setDescription(evt.target.value)}
                 name=""
                 id=""
                 cols="100"
                 rows="10"
                 placeholder="Provide information about your accommodation">
-
+                {description}
             </textarea><br />
             <button onClick={createAccommodation}>
-                Initialize voting process
+                Create property and Initialize voting process
             </button>
         </div>)
 }

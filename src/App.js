@@ -25,7 +25,7 @@ export default function App() {
         <Route path="mybookens" element={<MyBookens />} />
         <Route path="accommodationdetail" element={<AccommodationDetailPage />} />
         <Route path="emitbooken" element={<EmitBookenPage />} />
-        <Route path="createaccommodation" element={<AccommodationCreate />} />
+        <Route path="createaccommodation" element={<AccommodationCreate account={wallet}/>} />
       </Routes>
     </div>
   );

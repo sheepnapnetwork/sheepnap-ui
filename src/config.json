@@ -1,0 +1,5 @@
+{
+    "endpoint" : "https://sheepnapapi.herokuapp.com/api",
+    "daocontract" : "0x34cdabdF038F7dDf40c53bfaAb56B3EF30AF1127",
+    "wooltoken" : "0x7F1a7485aee2f6bdB446f421932ac5565b309247"
+}

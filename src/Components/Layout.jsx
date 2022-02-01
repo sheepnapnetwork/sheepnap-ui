@@ -26,7 +26,7 @@ function Layout({ wallet, setWallet })
         if (window.ethereum) {
             window.web3 = new Web3(window.ethereum);
             const account = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            setWallet(account);
+            setWallet(account[0]);
         } else if (window.web3) {
             window.web3 = new Web3(window.web3.currentProvider);
         } else {
