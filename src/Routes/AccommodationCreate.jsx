@@ -22,14 +22,15 @@ function AccommodationCreate({ account }) {
         var gasLimit = latestBlock.gasLimit;
 
         //Contract deployment
-        contract.deploy({
-            data: PropertyAbi.bytecode,
-            arguments: []
-        }).send({
-            from: account,
-            gasprice: gasPrice,
-            gas: gasLimit,
-        })
+        contract.deploy(
+            {
+                data: PropertyAbi.bytecode,
+                arguments: []
+            }).send({
+                from: account,
+                gasprice: gasPrice,
+                gas: gasLimit,
+            })
             .then((propertyContract) => {
                 alert("transaction has been confirmed");
                 setAddressContract(propertyContract._address);
@@ -44,6 +45,7 @@ function AccommodationCreate({ account }) {
                         'address': propertyContract._address,
                         'name': name,
                         'description': description,
+                        'owner': account
                     })
                 }).then(() => {
                     alert("Property saved in database");
@@ -52,12 +54,12 @@ function AccommodationCreate({ account }) {
             })
     }
 
-    const approveDAOTransfer = async (propertyAddress) => {
-
+    const approveDAOTransfer = async (propertyAddress) => 
+    {
         //approve transfer
         const woolToken = new window.web3.eth.Contract(WoolToken.abi, config.wooltoken);
 
-        woolToken.methods.approve(propertyAddress, 100)
+        woolToken.methods.approve(config.daocontract, window.web3.utils.toWei('100'))
             .send({ from: account })
             .on('transactionHash', (hash) => {
                 console.log(hash);

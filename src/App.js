@@ -14,10 +14,12 @@ import AccommodationCreate from "./Routes/AccommodationCreate";
 export default function App() {
 
   const [wallet, setWallet] = useState("...");
+  const [balance, setBalance] = useState(0);
+  
 
   return (
     <div>
-    <Layout wallet={wallet} setWallet={setWallet}  />
+    <Layout wallet={wallet} setWallet={setWallet} balance={balance} setBalance={setBalance}/>
       <Routes>
         <Route path="/" element={<SearchPage />}/>
         <Route path="request" element={<RequestPage wallet={wallet}/>} />
