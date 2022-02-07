@@ -10,6 +10,7 @@ import Layout from "./Components/Layout";
 import AccommodationDetailPage from "./Routes/AccommodationDetail";
 import EmitBookenPage from "./Routes/EmitBookenPage";
 import AccommodationCreate from "./Routes/AccommodationCreate";
+import './scss/app.scss'
 
 export default function App() {
 

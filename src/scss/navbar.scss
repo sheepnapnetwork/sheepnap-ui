@@ -1,0 +1,48 @@
+@use 'colors';
+
+.navbar{
+    border-bottom: .5px solid #e6e6e6;
+}
+
+.nav{
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+
+    .nav-brand {
+        a{
+            font-weight: bold;
+            vertical-align: sub;
+            color: colors.$color1;
+        }
+    }
+    .nav-links{
+        color: rgb(61, 61, 61);
+        a{
+            font-size: .95rem;
+            margin: 0 .5rem;
+            vertical-align: sub;
+            &:hover{
+                color: #000;
+            }
+        }
+    }
+
+    .wallet-connection{
+        margin-left: auto;
+
+        button{
+            background-color: colors.$color1;
+            padding: .5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: bold;
+        }
+        div{
+            display: inline-block;
+            margin-right: .5rem;
+        }
+    }
+}
+ 

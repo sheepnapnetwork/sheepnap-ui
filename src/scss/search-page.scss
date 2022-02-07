@@ -1,0 +1,35 @@
+.accom-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 300px));
+    grid-gap: 1.5rem;
+    justify-content: center;
+
+    .acco-card{
+        .acco-card_imgs{
+            background-color: #ccc;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: .5rem;
+            
+        }
+        .acco-card_name{
+            font-weight: 700;
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        .acco-card_info{
+            font-size: .9rem;
+            color: rgb(78, 78, 78);
+            display: inline-block;
+        }
+        .acco-card_price{
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        
+    }
+}

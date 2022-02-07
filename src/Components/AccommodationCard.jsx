@@ -17,19 +17,16 @@ function AccommodationCard({ accommodation }) {
     const handleOnClick = useCallback(() => navigate('/accommodationdetail', {replace: true}), [navigate]);
 
     return (
-    <div id={accommodation.id} onClick={handleOnClick}>
-        <div><b>{ accommodation.name }</b></div>
-        <div>{ accommodation.description }</div>
-        <div>{ accommodation.location }</div>
-        <div>{ accommodation.priceFrom }</div>
-        <div>{ accommodation.reviews }</div>
-        <div>{ accommodation.rating }</div>
-        <div>
+    <div className="acco-card" id={accommodation.id} onClick={handleOnClick}>
+        <div className='acco-card_imgs'>
             {
                 accommodation.images.map(im => <img src ={ im } />)
             }
         </div>
-        <hr/>
+        <div className='acco-card_name'>{ accommodation.name }</div>
+        <div className='acco-card_info'>{ accommodation.location }</div>
+        <div className='acco-card_info'>{ accommodation.rating } ({ accommodation.reviews } reviews)</div>
+        <div className='acco-card_price'>${ accommodation.priceFrom }</div>
     </div>)
 }
 

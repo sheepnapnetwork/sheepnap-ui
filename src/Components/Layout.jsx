@@ -4,24 +4,32 @@ import { Link } from "react-router-dom";
 import RequestPage from "../Routes/RequestPage";
 import config from "../config.json";
 import WoolToken from "../abis/WoolToken.json";
+import '../scss/navbar.scss'
 
 function Layout({ wallet, setWallet, balance, setBalance})
 {
-    return (<div>
-        <h1>Sheepnap Menu</h1>
-            <div className="wallet-connection">
-                <button onClick={connect}>Connect metamask wallet</button>
-                <p>{wallet}</p>
-                <p>{balance}</p>
+    return (
+        <div className="navbar">
+            <div className="container nav">
+                <div className="nav-brand">
+                    <img src="../../public/img/sheepnap-isotype.png" alt="" />
+                    <a href="">Sheepnap</a>
+                </div>
+                <div className="nav-links">
+                    <Link to="/">Home</Link> 
+                    <Link to="/request" element={<RequestPage wallet={wallet}/>}>Approval requests</Link>
+                    <Link to="/badges">Badges</Link>
+                    <Link to="/search">Search</Link>
+                    <Link to="/mybookens">My Bookens</Link> 
+                    <Link to="/createaccommodation">Create Accommodation</Link>
+                    <Link to="/emitbooken">Emit Booken</Link>
+                </div>
+                <div className="wallet-connection">
+                    <div>{wallet}</div>
+                    <div>{balance}</div>
+                    <button onClick={connect}>Connect metamask wallet</button>
+                </div>
             </div>
-            <Link to="/">Home</Link> | {" "}
-            <Link to="/request" element={<RequestPage wallet={wallet}/>}>Approval requests</Link> | {" "}
-            <Link to="/badges">Badges</Link> | {" "}
-            <Link to="/search">Search</Link> | {" "}
-            <Link to="/mybookens">My Bookens</Link> | {" "}
-            <Link to="/createaccommodation">Create Accommodation</Link> | {" "}
-            <Link to="/emitbooken">Emit Booken</Link> | {" "}
-            <hr/>
         </div>)
 
     async function connect() 

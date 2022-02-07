@@ -1,0 +1,16 @@
+.filters-container{
+    padding: 1rem;
+    margin: .5rem auto;
+
+    input {
+        border-radius: 5px;
+        border: 1px solid #e6e6e6;
+        padding: .5rem 1rem;
+        width: 180px;
+        color: rgb(44, 44, 44);
+
+        &:focus{
+            outline: none;
+        }
+    }
+}
