@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import BadgeCard from "../Components/BadgeCard";
 import { Link } from "react-router-dom";
+import config from "../config.json";
 
 function BadgesPage()
 {
-    const badges = [
-        { name : "Badge 1", description : 'This is the description 1', src : 'https://via.placeholder.com/150' },
-        { name : "Badge 2", description : 'This is the description 2', src : 'https://via.placeholder.com/150'  },
-        { name : "Badge 3", description : 'This is the description 3', src : 'https://via.placeholder.com/150'  }
-      ]
+    const [badges, setBadges]= useState([]);
+
+    useEffect(() => 
+    {
+        fetch(config.endpoint + 'badge/badge/')
+        .then(response => response.json())
+        .then(data => { setBadges(data); });
+    }, []);
 
     return (
     <div>
