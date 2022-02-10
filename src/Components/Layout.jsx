@@ -1,7 +1,7 @@
 import React from "react";
 import Web3 from "web3";
 import { Link } from "react-router-dom";
-import RequestPage from "../Routes/RequestPage";
+import ApprovalRequestPage from "../Routes/ApprovalRequestPage";
 import config from "../config.json";
 import WoolToken from "../abis/WoolToken.json";
 import '../scss/navbar.scss'
@@ -17,11 +17,11 @@ function Layout({ wallet, setWallet, balance, setBalance})
                 </div>
                 <div className="nav-links">
                     <Link to="/">Home</Link> 
-                    <Link to="/request" element={<RequestPage wallet={wallet}/>}>Approval requests</Link>
+                    <Link to="/approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>Approval requests</Link>
                     <Link to="/badges">Badges</Link>
                     <Link to="/search">Search</Link>
                     <Link to="/mybookens">My Bookens</Link> 
-                    <Link to="/createaccommodation">Create Accommodation</Link>
+                    <Link to="/createproperty">Create property</Link>
                     <Link to="/emitbooken">Emit Booken</Link>
                 </div>
                 <div className="wallet-connection">

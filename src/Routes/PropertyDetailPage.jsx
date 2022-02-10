@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import BookenCard from "../Components/BookenCard";
 
 function AccommodationDetailPage({ accommodation })
@@ -53,9 +52,6 @@ function AccommodationDetailPage({ accommodation })
             <p>
                 {accomodationDetail.description}
             </p>
-        </div>
-        <div>
-            { accomodationDetail.images.map(img => <img src ={ img } />) }
         </div>
         <h3>Bookens</h3>
         <div>

@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import PropertyAbi from "../abis/Property.json";
-import WoolToken from "../abis/WoolToken.json";
-import SheepnapDAO from "../abis/SheepnapDAO.json";
 import config from "../config.json";
 
-function AccommodationCreate({ account }) {
+function PropertyCreate({ account }) {
+
     const [addresscontract, setAddressContract] = useState("");
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
+    const [website, setWebsite] = useState("");
+    const [instagram, setInstagram] = useState("");
+    const [facebook, setFacebook] = useState("");
+    const [images, setImages] = useState([]);
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+    const [ipfs, setIPFS] = useState("");
+    const [address, setAddress] = useState("");
+    const [jsonData, setJsonData] = useState({});
 
-    const createAccommodation = async () => {
+    const createProperty = async () => {
 
         if (!account) {
             alert("please connect your wallet");
@@ -49,57 +57,8 @@ function AccommodationCreate({ account }) {
                     })
                 }).then(() => {
                     alert("Property saved in database");
-                    approveDAOTransfer(propertyContract._address);
                 });
             })
-    }
-
-    const approveDAOTransfer = async (propertyAddress) => 
-    {
-        //approve transfer
-        const woolToken = new window.web3.eth.Contract(WoolToken.abi, config.wooltoken);
-
-        woolToken.methods.approve(config.daocontract, window.web3.utils.toWei('100'))
-            .send({ from: account })
-            .on('transactionHash', (hash) => {
-                console.log(hash);
-            }).then(() => {
-                alert("approved");
-                emitApprovalRequest(propertyAddress);
-            });
-    }
-
-    const emitApprovalRequest = async (propertyAddress) => {
-        //TODO : repeated code.
-        var gasPrice = await window.web3.eth.getGasPrice();
-        var latestBlock = await window.web3.eth.getBlock("latest");
-        var gasLimit = latestBlock.gasLimit;
-
-        var item = {
-            from: account,
-            gasprice: gasPrice,
-            gaslimit: gasLimit,
-        };
-
-        const contract = new window.web3.eth.Contract(
-            SheepnapDAO.abi,
-            config.daocontract
-        );
-
-        contract.methods
-            .approvalRequest(propertyAddress)
-            .send(item)
-            .on("transactionHash", (hash) => {
-                alert("Transaction sent");
-            })
-            .on('error', function (error) {
-                alert(error);
-                console.log(error);
-            })
-            .on('confirmation', function (confirmationNumber, receipt) {
-                alert("Your approval request has been uploaded");
-                //TODO : upload it in database
-            });
     }
 
     return (
@@ -125,20 +84,39 @@ function AccommodationCreate({ account }) {
                     - Contact number
                 </p>
             </p>
-            Accommodation name : <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} /><br />
+            Property name : <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} /><br />
 
             <textarea onChange={(evt) => setDescription(evt.target.value)}
                 name=""
                 id=""
                 cols="100"
                 rows="10"
-                placeholder="Provide information about your accommodation">
+                placeholder="Provide information about your property">
                 {description}
             </textarea><br />
-            <button onClick={createAccommodation}>
-                Create property and Initialize voting process
+
+            Website : <input type="text" value={website} onChange={(evt) => setWebsite(evt.target.value)} /><br />
+            Facebook : <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} /><br />
+            Instagram : <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} /><br />
+            Images : <input type="text" value={images} onChange={(evt) => setImages(evt.target.value)} /><br />
+            Address : <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} /><br />
+            Latitude : <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} /><br />
+            Longitude : <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} /><br />
+
+            <br />
+            <b>
+                Sheepnap do not storage images directly
+                use a service like Fleek, Pinata
+            </b><br /><br />
+
+            Metadata endpoint : <input type="text" value={ipfs} onChange={(evt) => setIPFS(evt.target.value)} /><br />
+
+            <br />
+
+            <button onClick={createProperty}>
+                Create property
             </button>
         </div>)
 }
 
-export default AccommodationCreate;
+export default PropertyCreate;
