@@ -86,10 +86,13 @@ function PropertyCreate({ account }) {
                 });
             })
     }
-
+    const styles = {
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill , minmax(500px, 1fr))",
+    }
     return (
-        <div>
-            <h1>Create property  </h1>
+        <div className="container">
+            <h1>Create property</h1>
             <p>
                 Wanna be a host?
                 after you create the stay contract your information will go through
@@ -110,57 +113,105 @@ function PropertyCreate({ account }) {
                     - Contact number
                 </p>
             </p>
+            <div style={styles}>
 
-            Property name : <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} /><br />
-
-            <textarea onChange={(evt) => setDescription(evt.target.value)}
-                name=""
-                id=""
-                cols="100"
-                rows="10"
-                placeholder="Provide information about your property">
-                {description}
-            </textarea><br />
-
-            Website : <input type="text" value={website} onChange={(evt) => setWebsite(evt.target.value)} /><br />
-            Facebook : <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} /><br />
-            Instagram : <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} /><br />
-            <br />
+            <div className="form-container">
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Property name :</label>
+                    <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <textarea onChange={(evt) => setDescription(evt.target.value)}
+                        name=""
+                        id=""
+                        placeholder="Provide information about your property">
+                        {description}
+                    </textarea>
+                </div>
+            </div>
+            <div className="form-section">
+            <div className="form">
+                    <label htmlFor="">Website</label>
+                    <input type="text" value={website} onChange={(evt) => setWebsite(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Facebook</label>
+                    <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} />
+                </div>
+                <div className="form">
+                    <label htmlFor="">Instagram</label>
+                    <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} />
+                </div>
+            </div>
+            
             Sheepnap do not store images directly please use a service Pinata ..
-
+            
             {images.map(inputField => (
                 <div key={inputField.id}>
-                    Image url : <input type="text" /><br />
-                    image title : <input type="text" /><br />
-                    Image priority : <input type="text" />
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Image url</label>
+                            <input type="text" />
+                        </div>
+                    </div>
+                    <div className="form-section">
+                        <div className="form">
+                        <label htmlFor="">Image title</label>
+                            <input type="text" />
+                        </div>
+                        <div className="form">
+                            <label htmlFor="">Image priority</label>
+                            <input type="text" />
+                        </div>
+                    </div>
 
-                    <button onClick={(evt) => handleRemoveFields(inputField.id)}>
+                    <button className="btn-primary" onClick={(evt) => handleRemoveFields(inputField.id)}>
                         remove
                     </button>
-                    <hr/>
                 </div>
             ))}
-            <button onClick={handleAddFields}>
+            <button className="btn-primary" onClick={handleAddFields}>
                 Add new image
-            </button><br /><br />
-
-            Address : <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} /><br />
-            Latitude : <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} /><br />
-            Longitude : <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} /><br />
-
-            <br />
+            </button>
+            </div>
+            <div className="form-container">
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Adress:</label>
+                    <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Latitude:</label>
+                    <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} />
+                </div>
+                <div className="form">
+                    <label htmlFor="">Longitude:</label>
+                    <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} />
+                </div>
+            </div>
+            
             <b>
                 Sheepnap do not storage images directly
                 use a service like Fleek, Pinata
-            </b><br /><br />
+            </b>
+            <div className="form">
+                <label htmlFor="">Metadata endpoint:</label>
+                <input type="text" value={ipfs} onChange={(evt) => setIPFS(evt.target.value)} />
+            </div>
 
-            Metadata endpoint : <input type="text" value={ipfs} onChange={(evt) => setIPFS(evt.target.value)} /><br />
-
-            <br />
-
-            <button onClick={(evt) => createProperty }>
+            <button className="btn-primary" onClick={(evt) => createProperty }>
                 Create property
             </button>
+            </div>
+            </div>
+
         </div>)
 }
 

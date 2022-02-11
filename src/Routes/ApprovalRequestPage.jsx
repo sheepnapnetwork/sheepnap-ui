@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import config from "../config.json";
 import { Link } from "react-router-dom";
 import ApprovalRequestCreatePage from "./ApprovalRequestCreatePage";
-
+import '../scss/approval-rq.scss';
 function ApprovalRequestPage({ wallet })
 {
     const [approvalRequests, setApprovalRequests] = useState([]);
@@ -17,7 +17,7 @@ function ApprovalRequestPage({ wallet })
     }, []);
 
     return (
-    <div>
+    <div className="container">
         <h1>Approval requests</h1>
 
         <Link to="/request" element={<ApprovalRequestCreatePage/>}>Create Request</Link>

@@ -85,8 +85,6 @@ function ApprovalRequestCreatePage({ wallet })
             <textarea onChange={(evt) => setDescription(evt.target.value)}
                 name=""
                 id=""
-                cols="100"
-                rows="10"
                 placeholder="Provide information about your accommodation">
                 {description}
             </textarea><br />

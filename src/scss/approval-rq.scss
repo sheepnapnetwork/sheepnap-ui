@@ -1,0 +1,52 @@
+@use 'colors';
+
+.proposals-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 200px));
+    gap: 1.5rem;
+    margin-top: 2rem;
+
+    .proposal-card{
+        position: relative;
+        border: 1px solid #e6e6e6;
+        border-radius: 10px;
+        padding: 2rem 2rem 1.7rem;
+        text-align: center;
+
+        &:hover{
+            cursor: pointer;
+            border-color: colors.$color1;
+        }
+
+
+        .propo-card_name{
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+        }
+        .propo-card_total-votes{
+            font-size: 1rem;
+            margin-top: 1rem;
+            margin-bottom: .3rem;
+        }
+        .propo-card_votes{
+            display: flex;
+            justify-content: space-around;
+            font-size: .95rem;
+            margin-bottom:.5rem ;
+        }
+        .propo-card_comments{
+            font-size: .9rem;
+            color: rgb(47, 47, 47);
+            
+        }
+        .propo-card_end-date{
+            position: absolute;
+            font-size: .95rem;
+            bottom: 5px;
+            right: 10px;
+        }
+
+        
+    }
+}
