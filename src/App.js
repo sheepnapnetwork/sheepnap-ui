@@ -31,8 +31,8 @@ export default function App() {
         <Route path="mybookens" element={<MyBookens />} />
         <Route path="propertydetail" element={<PropertyDetailPage />} />
         <Route path="emitbooken" element={<EmitBookenPage />} />
-        <Route path="createproperty" element={<PropertyCreatePage account={wallet}/>} />
-        <Route path="myproperties" element={<MyPropertiesPage account={wallet}/>} />
+        <Route path="createproperty" element={<PropertyCreatePage wallet={wallet}/>} />
+        <Route path="myproperties" element={<MyPropertiesPage wallet={wallet}/>} />
       </Routes>
     </div>
   );

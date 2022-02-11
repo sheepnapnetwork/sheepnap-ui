@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import config from "../config.json";
 
-function MyPropertiesPage() {
+function MyPropertiesPage({ wallet }) {
 
     const [properties, setProperties] = useState([]);
 
     useEffect(() => 
     {
-        fetch(config.endpoint + '/property/propertybyaddress/address')
+        fetch(config.endpoint + 'property/properties/' + wallet)
         .then(response => response.json())
         .then(data => { console.log(data); setProperties(data); });
-    }, []);
+    }, [wallet]);
 
     return (
         <div>

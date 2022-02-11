@@ -1,6 +1,6 @@
 import React from "react";
 
-function ApprovalRequestDetailPage({ approvalRequest })
+function ApprovalRequestDetailPage({ wallet })
 {
     return (
     <div>

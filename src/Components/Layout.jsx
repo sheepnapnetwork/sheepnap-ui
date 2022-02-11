@@ -23,6 +23,7 @@ function Layout({ wallet, setWallet, balance, setBalance})
                     <Link to="/mybookens">My Bookens</Link> 
                     <Link to="/createproperty">Create property</Link>
                     <Link to="/emitbooken">Emit Booken</Link>
+                    <Link to="/myproperties">My properties</Link>
                 </div>
                 <div className="wallet-connection">
                     <div>{wallet}</div>

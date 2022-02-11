@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import ApprovaRequestCard from "../Components/ApprovalRequestCard";
 import WoolToken from "../abis/WoolToken.json";
-import { useEffect } from "react";
 import config from "../config.json";
 import SheepnapDAO from "../abis/SheepnapDAO.json";
 
-function ApprovalRequestCreatePage({ account })
+function ApprovalRequestCreatePage({ wallet })
 {
     const [description, setDescription] = useState("");
 
@@ -15,7 +13,7 @@ function ApprovalRequestCreatePage({ account })
         const woolToken = new window.web3.eth.Contract(WoolToken.abi, config.wooltoken);
 
         woolToken.methods.approve(config.daocontract, window.web3.utils.toWei('100'))
-            .send({ from: account })
+            .send({ from: wallet })
             .on('transactionHash', (hash) => {
                 console.log(hash);
             }).then(() => {
@@ -31,7 +29,7 @@ function ApprovalRequestCreatePage({ account })
         var gasLimit = latestBlock.gasLimit;
 
         var item = {
-            from: account,
+            from: wallet,
             gasprice: gasPrice,
             gaslimit: gasLimit,
         };
@@ -93,7 +91,7 @@ function ApprovalRequestCreatePage({ account })
                 {description}
             </textarea><br />
         </div>
-        
+
     </div>)
 }
 
