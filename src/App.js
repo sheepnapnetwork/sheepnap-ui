@@ -17,7 +17,7 @@ import MyPropertiesPage from "./Routes/MyPropertiesPage";
 
 export default function App() {
 
-  const [wallet, setWallet] = useState("...");
+  const [wallet, setWallet] = useState("");
   const [balance, setBalance] = useState(0);
 
   return (

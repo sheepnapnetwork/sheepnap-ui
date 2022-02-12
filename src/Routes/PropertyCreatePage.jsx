@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropertyAbi from "../abis/Property.json";
 import config from "../config.json";
 import { v4 as uuidv4 } from 'uuid';
 
-function PropertyCreate({ account }) {
+function PropertyCreate({ wallet }) {
 
     const [addresscontract, setAddressContract] = useState("");
     const [name, setName] = useState("");
@@ -13,13 +13,39 @@ function PropertyCreate({ account }) {
     const [facebook, setFacebook] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
-    const [ipfs, setIPFS] = useState("");
     const [address, setAddress] = useState("");
-    const [jsonData, setJsonData] = useState({});
-
+    
     const [images, setImages] = useState([
-        { id: uuidv4(), imageurl: '', title: '', priority: 0 }
+        { id: uuidv4(), url: '', title: '', priority: 0 }
     ]);
+
+    const [metadataEndpoint, setMetadataEndpoint] = useState("");
+    const [jsonData, setJsonData] = useState();
+
+    useEffect(() =>
+    {   
+        let data = { 
+            name : name ,
+            description : description,
+            address : address,
+            facebook : facebook,
+            website : website,
+            facebook : facebook,
+            instagram : instagram,
+            latitude : latitude,
+            longitude : longitude,
+            images : images
+        }
+        setJsonData(data);
+    }, [name, 
+        description, 
+        address, 
+        facebook, 
+        website,
+        instagram,
+        images, 
+        latitude, 
+        longitude])
 
     const handleChangeInput = (id, event) => {
         const newImages = images.map(i => {
@@ -32,10 +58,9 @@ function PropertyCreate({ account }) {
         setImages(newImages);
     }
 
-    const handleAddFields = () => 
-    {
+    const handleAddFields = () => {
         console.log(images);
-        setImages([...images, { id: uuidv4(), imageurl: '', title: '', priority: 0 }])
+        setImages([...images, { id: uuidv4(), url: '', title: '', priority: 0 }])
     }
 
     const handleRemoveFields = (id) => {
@@ -44,48 +69,91 @@ function PropertyCreate({ account }) {
         setImages(values);
     }
 
-    const createProperty = async () => {
+    const validateMetadata = async () => {
+        return fetch(config.endpoint + "property/validate", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                metadataendpoint: metadataEndpoint
+            })
+        })
+            .then(response => response.json())
+    }
 
-        if (!account) {
-            alert("please connect your wallet");
-            return;
-        }
-
+    const deployContractToBlockchain = async () => {
         var contract = new window.web3.eth.Contract(PropertyAbi.abi);
         var gasPrice = await window.web3.eth.getGasPrice();
         var latestBlock = await window.web3.eth.getBlock("latest");
         var gasLimit = latestBlock.gasLimit;
 
         //Contract deployment
-        contract.deploy(
+        return contract.deploy(
             {
                 data: PropertyAbi.bytecode,
                 arguments: []
             }).send({
-                from: account,
+                from: wallet,
                 gasprice: gasPrice,
                 gas: gasLimit,
             })
-            .then((propertyContract) => {
-
-                setAddressContract(propertyContract._address);
-                fetch(config.endpoint + "/property/addproperty", {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        'address': propertyContract._address,
-                        'name': name,
-                        'description': description,
-                        'owner': account
-                    })
-                }).then(() => {
-                    alert("Property saved in database");
-                });
-            })
+            .on('error', function (error) { })
+            .on('transactionHash', function (transactionHash) { })
+            .on('receipt', function (receipt) { })
+            .on('confirmation', function (confirmationNumber, receipt) { })
+            .then(contractInstace => {
+                alert("Contract deployed sucessfully");
+                setAddressContract(contractInstace._address);
+                return true;
+            });
     }
+
+    const addPropertyToDatabase = async () => {
+        return fetch(config.endpoint + "property/addproperty", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'address': addresscontract,
+                'owner': wallet,
+                'metadataendpoint' : metadataEndpoint,
+            })
+        }).then(response => response.json())
+    }
+
+    const createProperty = async () => {
+
+        if (!wallet) {
+            alert("please connect your wallet");
+            return;
+        }
+
+        var valid = await validateMetadata()
+
+        if(!valid) { 
+            alert('Metadata is not valid'); 
+            return; 
+        }
+
+        var deployed = await deployContractToBlockchain();
+
+        if(!deployed){
+            alert('Contract couldnt be deployed');
+            return;
+        }
+
+        var addedToDatabase = await addPropertyToDatabase();
+
+        if(!addedToDatabase){
+            alert('Property was not added to the database');
+            return;
+        }
+    }
+
     const styles = {
         display: "grid",
         gridTemplateColumns: "repeat(auto-fill , minmax(500px, 1fr))",
@@ -115,101 +183,109 @@ function PropertyCreate({ account }) {
             </p>
             <div style={styles}>
 
-            <div className="form-container">
-            <div className="form-section">
-                <div className="form">
-                    <label htmlFor="">Property name :</label>
-                    <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
-                </div>
-            </div>
-            <div className="form-section">
-                <div className="form">
-                    <textarea onChange={(evt) => setDescription(evt.target.value)}
-                        name=""
-                        id=""
-                        placeholder="Provide information about your property">
-                        {description}
-                    </textarea>
-                </div>
-            </div>
-            <div className="form-section">
-            <div className="form">
-                    <label htmlFor="">Website</label>
-                    <input type="text" value={website} onChange={(evt) => setWebsite(evt.target.value)} />
-                </div>
-            </div>
-            <div className="form-section">
-                <div className="form">
-                    <label htmlFor="">Facebook</label>
-                    <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} />
-                </div>
-                <div className="form">
-                    <label htmlFor="">Instagram</label>
-                    <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} />
-                </div>
-            </div>
-            
-            Sheepnap do not store images directly please use a service Pinata ..
-            
-            {images.map(inputField => (
-                <div key={inputField.id}>
+                <div className="form-container">
                     <div className="form-section">
                         <div className="form">
-                            <label htmlFor="">Image url</label>
-                            <input type="text" />
+                            <label htmlFor="">Property name :</label>
+                            <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
                         </div>
                     </div>
                     <div className="form-section">
                         <div className="form">
-                        <label htmlFor="">Image title</label>
-                            <input type="text" />
+                            <textarea onChange={(evt) => setDescription(evt.target.value)}
+                                name=""
+                                id=""
+                                placeholder="Provide information about your property">
+                                {description}
+                            </textarea>
+                        </div>
+                    </div>
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Website</label>
+                            <input type="text" value={website} onChange={(evt) => setWebsite(evt.target.value)} />
+                        </div>
+                    </div>
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Facebook</label>
+                            <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} />
                         </div>
                         <div className="form">
-                            <label htmlFor="">Image priority</label>
-                            <input type="text" />
+                            <label htmlFor="">Instagram</label>
+                            <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} />
                         </div>
                     </div>
 
-                    <button className="btn-primary" onClick={(evt) => handleRemoveFields(inputField.id)}>
-                        remove
+                    Sheepnap do not store images directly please use a service Pinata ..
+
+                    {images.map(inputField => (
+                        <div key={inputField.id}>
+                            <div className="form-section">
+                                <div className="form">
+                                    <label htmlFor="imageurl">Image url</label>
+                                    <input type="text" name="url" value={inputField.url} onChange={event => handleChangeInput(inputField.id, event)}/>
+                                </div>
+                            </div>
+                            <div className="form-section">
+                                <div className="form">
+                                    <label htmlFor="">Image title</label>
+                                    <input type="text" name="title" value={inputField.title} onChange={event => handleChangeInput(inputField.id, event)} />
+                                </div>
+                                <div className="form">
+                                    <label htmlFor="">Image priority</label>
+                                    <input type="Number" name="priority" value={inputField.priority} onChange={event => handleChangeInput(inputField.id, event)}/>
+                                </div>
+                            </div>
+
+                            <button className="btn-primary" onClick={(evt) => handleRemoveFields(inputField.id)}>
+                                remove
+                            </button>
+                        </div>
+                    ))}
+                    <button className="btn-primary" onClick={handleAddFields}>
+                        Add new image
                     </button>
                 </div>
-            ))}
-            <button className="btn-primary" onClick={handleAddFields}>
-                Add new image
-            </button>
-            </div>
-            <div className="form-container">
-            <div className="form-section">
-                <div className="form">
-                    <label htmlFor="">Adress:</label>
-                    <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} />
-                </div>
-            </div>
-            <div className="form-section">
-                <div className="form">
-                    <label htmlFor="">Latitude:</label>
-                    <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} />
-                </div>
-                <div className="form">
-                    <label htmlFor="">Longitude:</label>
-                    <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} />
-                </div>
-            </div>
-            
-            <b>
-                Sheepnap do not storage images directly
-                use a service like Fleek, Pinata
-            </b>
-            <div className="form">
-                <label htmlFor="">Metadata endpoint:</label>
-                <input type="text" value={ipfs} onChange={(evt) => setIPFS(evt.target.value)} />
-            </div>
+                <div className="form-container">
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Address:</label>
+                            <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} />
+                        </div>
+                    </div>
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Latitude:</label>
+                            <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} />
+                        </div>
+                        <div className="form">
+                            <label htmlFor="">Longitude:</label>
+                            <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} />
+                        </div>
+                    </div>
 
-            <button className="btn-primary" onClick={(evt) => createProperty }>
-                Create property
-            </button>
-            </div>
+                    <b>
+                        Sheepnap do not storage images directly
+                        use a service like Fleek, Pinata
+                    </b><br /><br />
+
+                    <div>
+                        {JSON.stringify(jsonData)}
+                    </div>
+
+                    <div className="form-section">
+                        <div className="form">
+                            <label htmlFor="">Metadata endpoint ::</label>
+                            <input type="text" value={metadataEndpoint} onChange={(evt) => setMetadataEndpoint(evt.target.value)} /><br />
+                        </div>
+                    </div>
+                    <br />
+
+                    <button onClick={createProperty} className="btn-primary">
+                        Create property
+                    </button>
+                </div>
             </div>
 
         </div>)
