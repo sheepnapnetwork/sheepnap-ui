@@ -17,13 +17,28 @@ function Layout({ wallet, setWallet, balance, setBalance})
                 </div>
                 <div className="nav-links">
                     <Link to="/">Home</Link> 
-                    <Link to="/approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>Approval requests</Link>
                     <Link to="/badges">Badges</Link>
                     <Link to="/search">Search</Link>
                     <Link to="/mybookens">My Bookens</Link> 
-                    <Link to="/createproperty">Create property</Link>
-                    <Link to="/emitbooken">Emit Booken</Link>
-                    <Link to="/myproperties">My properties</Link>
+                    <div className="nav-section">
+                        <div className="nav-section-name">
+                            Host
+                        </div>
+                        <ul className="nav-section-list">
+                            <li>
+                                <Link to="/approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>Approval requests</Link>
+                            </li>
+                            <li>
+                                <Link to="/createproperty">Create property</Link>
+                            </li>
+                            <li>
+                                <Link to="/emitbooken">Emit Booken</Link>
+                            </li>
+                            <li>
+                                <Link to="/myproperties">My properties</Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="wallet-connection">
                     <div>{wallet}</div>

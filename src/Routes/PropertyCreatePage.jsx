@@ -160,6 +160,7 @@ function PropertyCreate({ wallet }) {
     }
     return (
         <div className="container">
+            <div className="form-text">
             <h1>Create property</h1>
             <p>
                 Wanna be a host?
@@ -169,27 +170,50 @@ function PropertyCreate({ wallet }) {
 
                 This process has a fee to be paid.
                 yo will find the token here.
-                <link rel="stylesheet" href="www.google.com" />
-
-                <p>
-                    Information nedded :
-
-                    - Photos
-                    - WebPage
-                    - Room pictures
-                    - Location Pictures
-                    - Contact number
-                </p>
             </p>
+            </div>
+
+            
             <div style={styles}>
 
-                <div className="form-container">
-                    <div className="form-section">
-                        <div className="form">
-                            <label htmlFor="">Property name :</label>
-                            <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
-                        </div>
-                    </div>
+            <div className="form-container">
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Property name :</label>
+                    <input type="text" value={name} onChange={(evt) => setName(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <textarea onChange={(evt) => setDescription(evt.target.value)}
+                        name=""
+                        id=""
+                        placeholder="Tell us about your property">
+                        {description}
+                    </textarea>
+                </div>
+            </div>
+            <div className="form-section">
+            <div className="form">
+                    <label htmlFor="">Website</label>
+                    <input type="text" value={website} placeholder="Paste the url of your web page" onChange={(evt) => setWebsite(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Facebook</label>
+                    <input type="text" value={facebook} onChange={(evt) => setFacebook(evt.target.value)} />
+                </div>
+                <div className="form">
+                    <label htmlFor="">Instagram</label>
+                    <input type="text" value={instagram} onChange={(evt) => setInstagram(evt.target.value)} />
+                </div>
+            </div>
+            
+            Sheepnap do not store images directly please use a service Pinata ..
+            
+            {images.map(inputField => (
+                <div key={inputField.id}>
                     <div className="form-section">
                         <div className="form">
                             <textarea onChange={(evt) => setDescription(evt.target.value)}
@@ -247,23 +271,37 @@ function PropertyCreate({ wallet }) {
                         Add new image
                     </button>
                 </div>
-                <div className="form-container">
-                    <div className="form-section">
-                        <div className="form">
-                            <label htmlFor="">Address:</label>
-                            <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} />
-                        </div>
-                    </div>
-                    <div className="form-section">
-                        <div className="form">
-                            <label htmlFor="">Latitude:</label>
-                            <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} />
-                        </div>
-                        <div className="form">
-                            <label htmlFor="">Longitude:</label>
-                            <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} />
-                        </div>
-                    </div>
+            ))}
+            <button className="btn-primary" onClick={handleAddFields}>
+                Add new image
+            </button>
+            </div>
+            <div className="form-container">
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Adress:</label>
+                    <input type="text" value={address} placeholder="Where are the property?" onChange={(evt) => setAddress(evt.target.value)} />
+                </div>
+            </div>
+            <div className="form-section">
+                <div className="form">
+                    <label htmlFor="">Latitude:</label>
+                    <input type="text" value={latitude} onChange={(evt) => setLatitude(evt.target.value)} />
+                </div>
+                <div className="form">
+                    <label htmlFor="">Longitude:</label>
+                    <input type="text" value={longitude} onChange={(evt) => setLongitude(evt.target.value)} />
+                </div>
+            </div>
+            
+            <b>
+                Sheepnap do not storage images directly
+                use a service like Fleek, Pinata
+            </b>
+            <div className="form">
+                <label htmlFor="">Metadata endpoint:</label>
+                <input type="text" value={metadataEndpoint} onChange={(evt) => setMetadataEndpoint(evt.target.value)} />
+            </div>
 
                     <b>
                         Sheepnap do not storage images directly
