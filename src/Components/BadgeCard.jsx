@@ -1,33 +1,45 @@
 import React from "react";
+import Badge from '../abis/Badge.json'
+import sheepnap from '../abis/SheepnapDAO.json'
+import wool from '../abis/WoolToken.json';
+import config from '../config.json';
 
 function BadgeCard({ badge }) {
+// buy 1 minteando a la persona
+var badgecode = 1234;
+var price =500;
+var percentage = price *0.10;
+var amount = price + percentage;
+ 
 
-    async function transferToken(amount, _contractAbi, _addressContract) {
-        const user = await window.web3.eth.getAccounts();
-          window.web3.eth.getBlock("latest").then(async function (response) {
-            console.log(response.gasLimit);
-            window.web3.eth.getGasPrice().then(function (gas) {
-              console.log(gas);
-              var item = {
-                from: user[0],
-                gasprice: gas,
-                gaslimit: response.gasLimit,
-              };
-              console.log(item);
-              amount = window.web3.utils.toWei(amount, "Ether");
-              const contract = new window.web3.eth.Contract(
-                _contractAbi,
-                _addressContract
-              );
-              contract.methods
-                .transfer("0x02a10A6182B60Ee989fd611cab17bd0512885205", amount)
-                .send(item)
-                .on("transactionHash", (hash) => {
-                  alert("Successful payment");
-                });
-            });
-          });
-      }
+ async  function transferBadge (){
+    const user = await window.web3.eth.getAccounts();
+    var gasPrice = await window.web3.eth.getGasPrice();
+    var latestBlock = await window.web3.eth.getBlock("latest");
+    var gasLimit = latestBlock.gasLimit;
+
+    var item = {
+      from : user[0],
+      gasPrice,
+      gasLimit
+    }
+    
+    amount = window.web3.utils.toWei(amount.toString(), "Ether");
+    const woolcontract =new window.web3.eth.Contract(wool.abi, config.wool)
+    woolcontract.methods
+    .approve(config.sheepnapDAO,'100' )
+    .send(item)
+    .then(()=>{
+      alert('permission for the right contract')
+      const sheepnapcontract =new window.web3.eth.Contract(sheepnap.abi,config.sheepnapDAO)
+      sheepnapcontract.methods
+     .mintForBuy(badge.code)
+     .send(item)
+    })
+  }
+
+
+
     
     const handleVote = () =>
     {
@@ -47,8 +59,10 @@ function BadgeCard({ badge }) {
             { badge.description }
         </div>
 
-        <button onClick=
-            {handleVote}
+        <button onClick={()=>{
+          transferBadge()
+        }}
+            
 
         >Buy</button>
         <hr/>
