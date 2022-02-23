@@ -161,7 +161,7 @@ function PropertyCreate({ wallet }) {
     return (
         <div className="container">
             <div className="form-text">
-            <h1>Create property</h1>
+            <h2>Create property</h2>
             <p>
                 Wanna be a host?
                 after you create the stay contract your information will go through

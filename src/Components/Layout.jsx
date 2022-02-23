@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import ApprovalRequestPage from "../Routes/ApprovalRequestPage";
 import config from "../config.json";
 import WoolToken from "../abis/WoolToken.json";
-import '../scss/navbar.scss'
+import '../scss/navbar.scss';
+import brand from '../img/sheepnap-isotype.png';
 
 function Layout({ wallet, setWallet, balance, setBalance})
 {
@@ -12,7 +13,7 @@ function Layout({ wallet, setWallet, balance, setBalance})
         <div className="navbar">
             <div className="container nav">
                 <div className="nav-brand">
-                    <img src="../../public/img/sheepnap-isotype.png" alt="" />
+                    <img src={brand} alt="" />
                     <a href="">Sheepnap</a>
                 </div>
                 <div className="nav-links">
@@ -23,6 +24,7 @@ function Layout({ wallet, setWallet, balance, setBalance})
                     <div className="nav-section">
                         <div className="nav-section-name">
                             Host
+                            <span></span>
                         </div>
                         <ul className="nav-section-list">
                             <li>

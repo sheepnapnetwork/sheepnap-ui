@@ -33,7 +33,9 @@ function EmitBookenPage()
 
     return (
     <div className="container">
-        <h1>Emit Booken for accommodation : {} </h1>
+        <div className="form-text">
+            <h2>Emit Booken for accommodation:{}</h2>
+        </div>
         <div className="form-container">
             <div className="form-section">
                 <div className="form">

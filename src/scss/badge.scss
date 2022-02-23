@@ -1,0 +1,102 @@
+@use 'colors';
+.badge-header{
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 5rem;
+}
+.filters-list{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    font-size: .97rem;
+
+    .filter-item{
+        cursor: pointer;
+        padding: .5rem 1rem;
+        border-radius: 5px;
+        color: rgb(88, 88, 88);
+
+        &:hover{
+            background-color: #eeeeee;
+        }
+    }
+
+    .sort-by{
+        margin-left: auto;
+        label{
+            font-size: .9rem;
+            color: rgb(88, 88, 88);
+            margin-bottom: .5rem;
+        }
+        select{
+            display: block;
+            padding: .5rem 1rem;
+            width: 130px;
+            padding: .7rem 1rem;
+            border: 1px solid #e4e3e3;
+            border-radius: 7px;
+            outline: none;
+
+
+            &:hover, &:focus{
+                border-color: colors.$color1;
+            }
+        }
+    }
+}
+
+
+.proposal-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    gap: 1rem;
+    .badge-card{
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+        padding: .5rem;
+        overflow-x: hidden;
+        cursor: pointer;
+
+        .badge-card-image img{
+            border-radius: 5px;
+            position: relative;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            z-index: 5;
+        }
+        .badge-card-info{
+            margin: 1.1rem 0;
+            display: flex;
+            justify-content: space-between;
+
+            .badge-card-name{
+                font-weight: 500;
+                overflow-x: hidden;
+                text-overflow: ellipsis;
+                font-size: 1.1rem;
+            }
+
+
+            .badge-card-price{
+                position: relative;
+                text-align: right;
+                font-weight: 400;
+                display: inline-block;
+                right:0 ;
+            }
+            .badge-card-desc{
+                font-size: .9rem;
+            }
+            .badge-card-code{
+                font-size: .9rem;
+
+            }
+
+            
+        }
+        
+        
+
+    }
+}
