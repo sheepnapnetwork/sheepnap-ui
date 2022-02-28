@@ -1,0 +1,19 @@
+.approval_rq-container{
+    display: grid;
+    grid-template-columns: minmax(700px, 2fr) minmax(400px, 1fr); //Change to flex
+    gap: 1rem;
+    
+    p{
+        max-width: 700px;
+        font-size: 1.1rem;
+        line-height: 2rem;
+        font-weight: 300;
+        color: rgb(53, 53, 53);      
+    .approval_rq-aside{
+        .approval_rq-aside-information{
+            border-radius: 10px;
+            border: 1px solid #e6e6e6;
+        }
+    }
+}
+}

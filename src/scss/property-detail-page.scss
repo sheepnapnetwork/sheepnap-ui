@@ -1,0 +1,24 @@
+.property-images{
+    background-color: #000;
+    width: 100%;
+    height: 500px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: [col1]3fr 1fr 1fr;
+    grid-template-rows: [row1]100% [row2]250px;
+    gap: .5rem;
+
+    img{
+        position: relative;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    &:nth-child(1){
+        display: none;
+        grid-column-start: 1;
+        grid-row-start: row1;
+        grid-row-end: row2;
+    }
+
+}

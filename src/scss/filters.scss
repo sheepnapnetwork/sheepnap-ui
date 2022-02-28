@@ -1,6 +1,8 @@
+@use 'colors';
+
 .filters-container{
-    padding: 1rem;
-    margin: .5rem auto;
+    padding: 1rem 0;
+    margin: .3rem auto;
 
     input {
         border-radius: 5px;
@@ -13,4 +15,47 @@
             outline: none;
         }
     }
+}
+
+.filters-list{
+    display: flex;
+    align-items: flex-end;
+    gap: 1rem;
+    padding: 1rem 0;
+    font-size: .97rem;
+
+    .filter-item{
+        cursor: pointer;
+        padding: .5rem 1rem;
+        border-radius: 5px;
+        color: rgb(88, 88, 88);
+
+        &:hover{
+            background-color: #eeeeee;
+        }
+    }
+
+    .sort-by{
+        margin-left: auto;
+        label{
+            font-size: .9rem;
+            color: rgb(88, 88, 88);
+            margin-bottom: .5rem;
+        }
+        select{
+            display: block;
+            padding: .5rem 1rem;
+            width: 130px;
+            padding: .7rem 1rem;
+            border: 1px solid #e4e3e3;
+            border-radius: 7px;
+            outline: none;
+
+
+            &:hover, &:focus{
+                border-color: colors.$color1;
+            }
+        }
+    }
+
 }

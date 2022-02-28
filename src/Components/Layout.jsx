@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import Web3 from "web3";
 import { Link } from "react-router-dom";
 import ApprovalRequestPage from "../Routes/ApprovalRequestPage";
@@ -6,8 +6,12 @@ import config from "../config.json";
 import WoolToken from "../abis/WoolToken.json";
 import '../scss/navbar.scss';
 import brand from '../img/sheepnap-isotype.png';
+import wool from '../img/wool.png';
 
 function Layout({ wallet, setWallet, balance, setBalance }) {
+
+    const [show, setShow] = useState(false);
+
     return (
         <div className="navbar">
             <div className="container nav">
@@ -20,12 +24,12 @@ function Layout({ wallet, setWallet, balance, setBalance }) {
                     <Link to="/badges">Badges</Link>
                     <Link to="/search">Search</Link>
                     <Link to="/mybookens">My Bookens</Link>
-                    <div className="nav-section">
+                    <div className="nav-section" onClick={() => setShow((s) => !s)}>
                         <div className="nav-section-name">
                             Host
                             <span></span>
                         </div>
-                        <ul className="nav-section-list">
+                        <ul className="nav-section-list" style={{ display: show ? "block" : "none" }}>
                             <li>
                                 <Link to="/approvalrequests" element={<ApprovalRequestPage wallet={wallet} />}>Approval requests</Link>
                             </li>
@@ -41,10 +45,10 @@ function Layout({ wallet, setWallet, balance, setBalance }) {
                         </ul>
                     </div>
                 </div>
-                <div>
-                    <button onClick={ addtoken }>Add token</button>
-                </div>
                 <div className="wallet-connection">
+                    <span className="wool" onClick={ addtoken }>
+                        <img src={wool} alt="" />
+                    </span>
                     <div>{wallet}</div>
                     <div>{balance}</div>
                     <button onClick={connect}>Connect metamask wallet</button>

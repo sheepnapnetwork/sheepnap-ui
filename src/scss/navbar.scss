@@ -5,7 +5,7 @@
 }
 
 .nav{
-    padding: 1.4rem 0;
+    padding: 1.1rem 0;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -23,10 +23,11 @@
         }
     }
     .nav-links{
+        margin-left: 1.5rem;
         color: rgb(61, 61, 61);
         a{
             font-size: .95rem;
-            margin: 0 .5rem;
+            margin: 0 .7rem;
             vertical-align: sub;
             &:hover{
                 color: #000;
@@ -35,20 +36,36 @@
         
         .nav-section{
             display: inline-block;
+            vertical-align: middle;
             position: relative;
-            vertical-align: sub;
             cursor: pointer;
 
-            
-
             .nav-section-name{
+                position: relative;
+                display: inline;
+                vertical-align: sub;
                 color: rgb(61, 61, 61);
                 padding: .5rem .25rem;
                 border-bottom: 3px solid transparent;
+
+                &::before{
+                    content: "";
+                    display: block;
+                    background-color: #000;
+                    height: 4px;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    width: 0%;
+                }
                 
+                &:hover ~ &::before{
+                    width: 100%;
+                }
+
             }
 
-            
             .nav-section-list{
                 list-style: none;
                 padding: .5rem;
@@ -80,7 +97,18 @@
 
     .wallet-connection{
         margin-left: auto;
+        .wool{
+            img{
+                cursor: pointer;
+                width: 2.3rem;
+                vertical-align: middle;
+                transition: .2s ease;
 
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+        }
         button{
             background-color: colors.$color1;
             padding: .7rem 1rem;

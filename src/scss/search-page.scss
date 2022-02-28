@@ -5,6 +5,7 @@
     justify-content: center;
 
     .acco-card{
+        cursor: pointer;
         .acco-card_imgs{
             background-color: #ccc;
             height: 250px;
@@ -20,15 +21,21 @@
             white-space: nowrap;
             text-overflow: ellipsis;
         }
-        .acco-card_info{
-            font-size: .9rem;
-            color: rgb(78, 78, 78);
-            display: inline-block;
+        .acco-card_content{
+            display: flex;
+            justify-content: flex-start;
+            .acco-card_info{
+                font-size: .9rem;
+                color: rgb(78, 78, 78);
+                display: inline-block;
+            }
+            .acco-card_price{
+                display: block;
+                font-size: 1.2rem;
+                margin-left: auto;
+            }
         }
-        .acco-card_price{
-            display: inline-block;
-            font-size: 1.2rem;
-        }
+        
 
         
     }

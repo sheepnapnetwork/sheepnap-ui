@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import config from "../config.json";
+import '../scss/layout.scss';
+import '../scss/property-detail-page.scss'
 
 function PropertyDetailPage()
 {
@@ -15,52 +17,41 @@ function PropertyDetailPage()
     }, []);
 
     return (
-    <div>
-        <table style={{"border" : "1px solid", "width":"100%"}}>
-            <tr>
-                <td>Address</td>
-                <td>
-                    {property.address}
-                </td>
-            </tr>
-            <tr>
-                <td>Name</td>
-                <td>
-                    {property.name}
-                </td>
-            </tr>
-            <tr>
-                <td>description</td>
-                <td>
-                    {property.description}
-                </td>
-            </tr>
-            <tr>
-                <td>reviews</td>
-                <td>
-                    {property.reviews}
-                </td>
-            </tr>
-            <tr>
-                <td>trustlevel</td>
-                <td>
-                    {property.trustlevel}
-                </td>
-            </tr>
-            <tr>
-                <td>rating</td>
-                <td>
-                    {property.rating}
-                </td>
-            </tr>
-            <tr>
-                <td>Images</td>
-                <td>
-                    {property.Images.map(im => <img style={{"width" : "150px"}} src={im.url}></img>)}
-                </td>
-            </tr>
+    <div className='container'>
+        <div>
+            <h2>{property.name}</h2>
+            <small>{property.address}</small>
+        </div>
+        
+        <div className='property-images'>
+            {property.Images.map(im => <img src={im.url}></img>)}
+        </div>
 
-        </table>
+        <tr>
+            <td>description</td>
+            <td>
+                {property.description}
+            </td>
+        </tr>
+        <tr>
+            <td>reviews</td>
+            <td>
+                {property.reviews}
+            </td>
+        </tr>
+        <tr>
+            <td>trustlevel</td>
+            <td>
+                {property.trustlevel}
+            </td>
+        </tr>
+        <tr>
+            <td>rating</td>
+            <td>
+                {property.rating}
+            </td>
+        </tr>
+
     </div>)
 }
 

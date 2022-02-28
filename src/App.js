@@ -12,6 +12,7 @@ import Layout from "./Components/Layout";
 import PropertyDetailPage from "./Routes/PropertyDetailPage";
 import EmitBookenPage from "./Routes/EmitBookenPage";
 import PropertyCreatePage from "./Routes/PropertyCreatePage";
+import ApprovalRqDetail from "./Routes/ApprovalRqDetail"
 
 import MyPropertiesPage from "./Routes/MyPropertiesPage";
 import HomePage from "./Routes/HomePage";
@@ -30,7 +31,8 @@ export default function App() {
         <Route path="/search" element={<SearchPage />}/>
         
         <Route path="approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>
-          <Route path="detail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />  
+          <Route path="detail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />
+          <Route path="approvalRqDetail" element={<ApprovalRqDetail />}/>
         </Route>
 
         <Route path="badges" element={<BadgesPage />} />
