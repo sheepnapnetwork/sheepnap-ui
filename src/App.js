@@ -14,6 +14,8 @@ import EmitBookenPage from "./Routes/EmitBookenPage";
 import PropertyCreatePage from "./Routes/PropertyCreatePage";
 
 import MyPropertiesPage from "./Routes/MyPropertiesPage";
+import HomePage from "./Routes/HomePage";
+import MyPropertyDashboard from "./Components/MyPropertyDashboard";
 
 export default function App() {
 
@@ -24,15 +26,24 @@ export default function App() {
     <div>
     <Layout wallet={wallet} setWallet={setWallet} balance={balance} setBalance={setBalance}/>
       <Routes>
-        <Route path="/" element={<SearchPage />}/>
-        <Route path="approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>} />
-        <Route path="approvalrequestsdetail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />
+        <Route path="/" element={<HomePage />}/>
+        <Route path="/search" element={<SearchPage />}/>
+        
+        <Route path="approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>
+          <Route path="detail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />  
+        </Route>
+
         <Route path="badges" element={<BadgesPage />} />
         <Route path="mybookens" element={<MyBookens />} />
-        <Route path="propertydetail" element={<PropertyDetailPage />} />
-        <Route path="emitbooken" element={<EmitBookenPage />} />
-        <Route path="createproperty" element={<PropertyCreatePage wallet={wallet}/>} />
-        <Route path="myproperties" element={<MyPropertiesPage wallet={wallet}/>} />
+                
+        <Route path="property">
+          <Route path="detail/:propertyaddress" element={<PropertyDetailPage />} />
+          <Route path="dashboard" element={<MyPropertyDashboard />} />
+          <Route path="bookens" element={<EmitBookenPage />} />
+          <Route path="create" element={<PropertyCreatePage wallet={wallet}/>} />
+          <Route path="myproperties" element={<MyPropertiesPage wallet={wallet}/>} />
+        </Route>
+
       </Routes>
     </div>
   );

@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom';
 function PropertyCard({ property }) {
     
     const navigate = useNavigate();
-    const handleOnClick = useCallback(() => navigate('/accommodationdetail', {replace: true}), [navigate]);
+    const handleOnClick = useCallback(() => navigate('/property/detail/' + property.address, {replace: true}), [navigate]);
 
     return (
         <div className="acco-card" id={property.address} onClick={handleOnClick}>

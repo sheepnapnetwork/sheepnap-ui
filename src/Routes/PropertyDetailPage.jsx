@@ -1,63 +1,67 @@
-import React from "react";
-import BookenCard from "../Components/BookenCard";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import config from "../config.json";
 
-function AccommodationDetailPage({ accommodation })
+function PropertyDetailPage()
 {
-    const accomodationDetail = 
-    { 
-        name : "Accommodation name", 
-        description : 'This is the description 1',
-        images : [
-            "https://via.placeholder.com/300",
-            "https://via.placeholder.com/300",
-        ],
-        bookens : [
-            {
-                roomName : 'Room Name',
-                roomType : 'Double',
-                minAdults : 2,
-                maxAdults : 2,
-                checkIn : 'dateFrom',
-                checkOut : 'dateTo',
-                pricePerAdult : 100,
-                additionalAdult : 10,
-            },
-            {
-                roomName : 'Room Name Two',
-                roomType : 'Double',
-                minAdults : 2,
-                maxAdults : 2,
-                checkIn : 'dateFrom',
-                checkOut : 'dateTo',
-                pricePerAdult : 100,
-                additionalAdult : 10,
-            },
-            {
-                roomName : 'Room Name Three',
-                roomType : 'Double',
-                minAdults : 2,
-                maxAdults : 2,
-                checkIn : 'dateFrom',
-                checkOut : 'dateTo',
-                pricePerAdult : 100,
-                additionalAdult : 10,
-            }
-        ]
-    };
+    let { propertyaddress } = useParams();
+
+    const [property, setProperty] = useState({ Images : [] });
+
+    useEffect(() => {
+        fetch(config.endpoint + 'property/property/' + propertyaddress)
+            .then(response => response.json())
+            .then(data => { setProperty(data); });
+    }, []);
 
     return (
     <div>
-        <h1>{accomodationDetail.name}</h1>
-        <div>
-            <p>
-                {accomodationDetail.description}
-            </p>
-        </div>
-        <h3>Bookens</h3>
-        <div>
-            { accomodationDetail.bookens.map(bkn => <BookenCard booken={bkn} /> ) }
-        </div>
+        <table style={{"border" : "1px solid", "width":"100%"}}>
+            <tr>
+                <td>Address</td>
+                <td>
+                    {property.address}
+                </td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>
+                    {property.name}
+                </td>
+            </tr>
+            <tr>
+                <td>description</td>
+                <td>
+                    {property.description}
+                </td>
+            </tr>
+            <tr>
+                <td>reviews</td>
+                <td>
+                    {property.reviews}
+                </td>
+            </tr>
+            <tr>
+                <td>trustlevel</td>
+                <td>
+                    {property.trustlevel}
+                </td>
+            </tr>
+            <tr>
+                <td>rating</td>
+                <td>
+                    {property.rating}
+                </td>
+            </tr>
+            <tr>
+                <td>Images</td>
+                <td>
+                    {property.Images.map(im => <img style={{"width" : "150px"}} src={im.url}></img>)}
+                </td>
+            </tr>
+
+        </table>
     </div>)
 }
 
-export default AccommodationDetailPage;
+export default PropertyDetailPage;

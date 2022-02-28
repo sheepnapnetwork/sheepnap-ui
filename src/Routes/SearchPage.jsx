@@ -10,7 +10,7 @@ function SearchPage() {
     const [properties, setProperties] = useState([]);
 
     useEffect(() => {
-        fetch(config.endpoint + 'property/GetPropertiesForHomePage')
+        fetch(config.endpoint + 'property/propertieshomepage')
             .then(response => response.json())
             .then(data => { setProperties(data); });
 

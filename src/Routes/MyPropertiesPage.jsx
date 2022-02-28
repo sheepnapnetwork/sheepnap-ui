@@ -7,16 +7,30 @@ function MyPropertiesPage({ wallet }) {
 
     useEffect(() => 
     {
-        fetch(config.endpoint + 'property/properties/' + wallet)
+        if(wallet == ""){
+            return;
+        }
+
+        fetch(config.endpoint + 'property/properties/owner/' + wallet)
         .then(response => response.json())
-        .then(data => { console.log(data); setProperties(data); });
+        .then(data => { setProperties(data); });
+
     }, [wallet]);
 
     return (
         <div>
             <h1>My properties</h1>
-            <div className="properties-container">
-                {properties.map(prop => <h1>Propiedad</h1>)}
+            <div>
+                {properties.map(p => <table>
+                    <tr>
+                        <td>Name : </td>
+                        <td>{p.name}</td>
+                    </tr>
+                    <tr>
+                        <td>Description : </td>
+                        <td>{p.description}</td>
+                    </tr>
+                </table>)}
             </div>
         </div>)
 }

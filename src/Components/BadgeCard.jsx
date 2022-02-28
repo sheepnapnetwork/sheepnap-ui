@@ -11,15 +11,6 @@ var price =500;
 var percentage = price *0.10;
 var amount = price + percentage;
  
-const badges = {
-    "code" : "2022",
-    "name" : "isignia por servicio",
-    "description" : "califico",
-    "owner" : "sheepnap",
-    "quantity" : "1",
-    "src" : "https://okdiario.com/img/2020/01/22/ovejas.jpg"
-}
-
  async  function transferBadge (){
     const user = await window.web3.eth.getAccounts();
     var gasPrice = await window.web3.eth.getGasPrice();
@@ -46,25 +37,13 @@ const badges = {
     })
   }
 
-
-
-    
-    const handleVote = () =>
-    {
-
-    }
-
-    const leaveComment =() => {
-
-    }
-
     return (<div>
         <div>
-            <b>{ badges.name }</b>
+            <b>{ badge.name }</b>
         </div>
-        <img src={badges.src} />
+        <img src={badge.src} />
         <div>
-            { badges.description }
+            { badge.description }
         </div>
 
         <button onClick={()=>{
