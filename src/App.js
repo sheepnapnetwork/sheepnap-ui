@@ -17,6 +17,7 @@ import ApprovalRqDetail from "./Routes/ApprovalRqDetail"
 import MyPropertiesPage from "./Routes/MyPropertiesPage";
 import HomePage from "./Routes/HomePage";
 import MyPropertyDashboard from "./Components/MyPropertyDashboard";
+import ApprovalRequestCreatePage from "./Routes/ApprovalRequestCreatePage";
 
 export default function App() {
 
@@ -30,7 +31,9 @@ export default function App() {
         <Route path="/" element={<HomePage />}/>
         <Route path="/search" element={<SearchPage />}/>
         
-        <Route path="approvalrequests" element={<ApprovalRequestPage wallet={wallet}/>}>
+        <Route path="approvalrequests">
+          <Route path="dashboard" element={<ApprovalRequestPage />}/>
+          <Route path="create" element={<ApprovalRequestCreatePage />}/>
           <Route path="detail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />
           <Route path="approvalRqDetail" element={<ApprovalRqDetail />}/>
         </Route>

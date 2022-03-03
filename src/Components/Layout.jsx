@@ -31,7 +31,7 @@ function Layout({ wallet, setWallet, balance, setBalance }) {
                         </div>
                         <ul className="nav-section-list" style={{ display: show ? "block" : "none" }}>
                             <li>
-                                <Link to="/approvalrequests" element={<ApprovalRequestPage wallet={wallet} />}>Approval requests</Link>
+                                <Link to="/approvalrequests/dashboard" element={<ApprovalRequestPage wallet={wallet} />}>Approval requests</Link>
                             </li>
                             <li>
                                 <Link to="/property/create">Create property</Link>

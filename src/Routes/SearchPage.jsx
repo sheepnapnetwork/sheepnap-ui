@@ -19,36 +19,28 @@ function SearchPage() {
     return (
         <div>
             <div className="filters-container container">
-            <div className="filters-list">
-            <div className="filter-item">
-                element
-            </div>
-            <div className="filter-item">
-                element
-            </div>
-            <div className="filter-item">
-                element
-            </div>
-            <div className="filter-item">
-                element
-            </div>
-            <div className="filter-item">
-                element
-            </div>
-            <div className="filter-item">
-                element
-            </div>
+                <div className="filters-list">
+                    <div className="filter-item">
+                        Cabins
+                    </div>
+                    <div className="filter-item">
+                        Apartments
+                    </div>
+                    <div className="filter-item">
+                        Farms
+                    </div>
+                    <div className="filter-item">
+                        Beachfront
+                    </div>
 
-            <div className="sort-by ">
-                <label htmlFor="">Sort-by</label>
-                <select name="Select" id="">
-                    <option value="">1</option>
-                    <option value="">1</option>
-                    <option value="">1</option>
-                </select>
-            </div>
-        </div>
-                <input type="text" placeholder="Search by location or property name" />
+                    <div className="sort-by ">
+                        <label htmlFor="">Sort-by</label>
+                        <select name="Select" id="">
+                            <option value="">Price</option>
+                            <option value="">Rating</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div className="accom-container container">
                 {properties.map(rq => <PropertyCard property={rq} />)}

@@ -17,7 +17,7 @@ function PropertyCard({ property }) {
         <div className='acco-card_content'>
             <div className='acco-card_info'>{ property.location }</div>
             <div className='acco-card_info'>{ property.rating } ({ property.reviews } reviews)</div>
-            <div className='acco-card_price'>${ property.priceFrom }</div>
+            <div className='acco-card_price'>${ property.pricefrom }</div>
         </div>
     </div>)
 }

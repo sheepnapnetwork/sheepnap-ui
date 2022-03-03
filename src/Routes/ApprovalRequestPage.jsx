@@ -26,7 +26,7 @@ function ApprovalRequestPage({ wallet })
     <div className="container">
         <h1>Approval requests</h1>
 
-        <Link to="/request" element={<ApprovalRequestCreatePage/>}>Create Request</Link>
+        <Link to="../create" element={<ApprovalRequestCreatePage/>}>Create Request</Link>
 
         <div className="proposals-container">
             { approvalRequests.map(rq => <ApprovaRequestCard approvalRequest={rq}/>) }
