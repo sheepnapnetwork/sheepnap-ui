@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 import WoolToken from "../abis/WoolToken.json";
 import config from "../config.json";
 import SheepnapDAO from "../abis/SheepnapDAO.json";
@@ -6,6 +6,24 @@ import SheepnapDAO from "../abis/SheepnapDAO.json";
 function ApprovalRequestCreatePage({ wallet })
 {
     const [description, setDescription] = useState("");
+    
+    const [propertiesToApprove, setPropertiesToApprove] = useState([]);
+    const [selectedProperty, setSelectedProperty] = useState("");
+    
+    useEffect(() => 
+    {
+        if(wallet == ""){
+            return;
+        }
+
+        fetch(config.endpoint + 'property/propertiesapproveddenied/'+ wallet)
+        .then(response => response.json())
+        .then(data => { setPropertiesToApprove(data);
+            console.log(data)
+         });
+        
+
+    }, [wallet]);
 
     const approveDAOTransfer = async (propertyAddress) => 
     {
@@ -76,10 +94,22 @@ function ApprovalRequestCreatePage({ wallet })
         })
     }
 
+   async function handleChange(e) {
+        const value = e.target.value;
+        setSelectedProperty(value);
+    }
+
+
     return (
     <div>
         <h1>Create approval request</h1>
-        
+        <div>
+        <select name="select" onChange={(e) => handleChange(e)}>
+            {propertiesToApprove.map(property => <option value={property.address}>{property.name}</option> ) }
+            
+        </select>
+        <button onClick={()=>approveDAOTransfer(selectedProperty) } >Create approval request</button>
+        </div>
         <div>
         Description
             <textarea onChange={(evt) => setDescription(evt.target.value)}
@@ -89,6 +119,7 @@ function ApprovalRequestCreatePage({ wallet })
                 {description}
             </textarea><br />
         </div>
+       
 
     </div>)
 }

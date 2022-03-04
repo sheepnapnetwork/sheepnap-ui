@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import config from "../config.json";
+import MyPropertyCard from "../Components/MyPropertyCard";
+
 
 function MyPropertiesPage({ wallet }) {
 
@@ -21,16 +23,7 @@ function MyPropertiesPage({ wallet }) {
         <div>
             <h1>My properties</h1>
             <div>
-                {properties.map(p => <table>
-                    <tr>
-                        <td>Name : </td>
-                        <td>{p.name}</td>
-                    </tr>
-                    <tr>
-                        <td>Description : </td>
-                        <td>{p.description}</td>
-                    </tr>
-                </table>)}
+            {properties.map(properties => <MyPropertyCard property={properties} />)}
             </div>
         </div>)
 }

@@ -1,30 +1,27 @@
-import React from "react";
+import React, {useCallback} from 'react';
 import { useNavigate } from "react-router-dom";
+
+
 
 function MyPropertyCard({ property }) 
 {    
+    const navigate = useNavigate();
+    const handleOnClick = useCallback(() => navigate('/property/dashboard/'+ property.address, {replace: true}), [navigate]);
 
-    async function goToDashBoard(propertyaddress)
-    {
-        navigate(`/property/${propertyaddress}`);
-    }
+    // async function goToDashBoard(propertyaddress)
+    // {
+    //     navigate(`/property/${propertyaddress}`);
+    // }
 
     return (
-        <table style={{border : "1px solid"}}>
-            <tr>
-                <td>
-                    Name :
-                </td>
-                <td>
-                    {property.name}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button onClick={goToDashBoard(property.address)}></button>
-                </td>
-            </tr>
-        </table>
+        <div className='proposal-card' onClick={handleOnClick}>
+        <div className='propo-card_name'>
+            { property.name}
+        </div>
+        <div className="propo-card_comments">
+            { property.address } 
+        </div>
+    </div>
     )
 }
 

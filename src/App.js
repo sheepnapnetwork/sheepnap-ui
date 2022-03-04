@@ -12,7 +12,8 @@ import Layout from "./Components/Layout";
 import PropertyDetailPage from "./Routes/PropertyDetailPage";
 import EmitBookenPage from "./Routes/EmitBookenPage";
 import PropertyCreatePage from "./Routes/PropertyCreatePage";
-import ApprovalRqDetail from "./Routes/ApprovalRqDetail"
+import ApprovalRqDetail from "./Routes/ApprovalRqDetail";
+import ApprovalRqCreate from "./Routes/ApprovalRequestCreatePage"
 
 import MyPropertiesPage from "./Routes/MyPropertiesPage";
 import HomePage from "./Routes/HomePage";
@@ -33,9 +34,10 @@ export default function App() {
         
         <Route path="approvalrequests">
           <Route path="dashboard" element={<ApprovalRequestPage />}/>
-          <Route path="create" element={<ApprovalRequestCreatePage />}/>
+          <Route path="create" element={<ApprovalRequestCreatePage wallet={wallet} />}/>
           <Route path="detail" element={<ApprovalRequestDetailPage wallet={wallet}/>} />
           <Route path="approvalRqDetail" element={<ApprovalRqDetail />}/>
+
         </Route>
 
         <Route path="badges" element={<BadgesPage />} />

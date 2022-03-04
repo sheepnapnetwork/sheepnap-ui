@@ -95,7 +95,7 @@ function Layout({ wallet, setWallet, balance, setBalance }) {
 
             const woolToken = new window.web3.eth.Contract(WoolToken.abi, config.wooltoken);
             let balanceData = await woolToken.methods.balanceOf(account[0]).call();
-            console.log(balanceData);
+            // console.log(balanceData);
             setBalance(balanceData);
 
         } else if (window.web3) {
