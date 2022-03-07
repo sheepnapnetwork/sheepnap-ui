@@ -9,11 +9,11 @@ function SearchPage() {
 
     const [properties, setProperties] = useState([]);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         fetch(config.endpoint + 'property/propertieshomepage')
             .then(response => response.json())
             .then(data => { setProperties(data); });
-
     }, []);
 
     return (

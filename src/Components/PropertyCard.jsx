@@ -10,7 +10,7 @@ function PropertyCard({ property }) {
         <div className="acco-card" id={property.address} onClick={handleOnClick}>
         <div className='acco-card_imgs'>
             {
-                property.Images.map(im => <img src ={ im.url } />)
+                property.Images?.map(im => <img src ={ im.url } />)
             }
         </div>
         <div className='acco-card_name'>{ property.name }</div>

@@ -5,54 +5,52 @@ import wool from '../abis/WoolToken.json';
 import config from '../config.json';
 
 function BadgeCard({ badge }) {
-// buy 1 minteando a la persona
-var badgecode = 1234;
-var price =500;
-var percentage = price *0.10;
-var amount = price + percentage;
- 
- async  function transferBadge (){
+  
+  var percentage = badge.price * 0.10;
+  var amount = badge.price + percentage;
+
+  async function transferBadge() {
     const user = await window.web3.eth.getAccounts();
     var gasPrice = await window.web3.eth.getGasPrice();
     var latestBlock = await window.web3.eth.getBlock("latest");
     var gasLimit = latestBlock.gasLimit;
 
     var item = {
-      from : user[0],
+      from: user[0],
       gasPrice,
       gasLimit
     }
-    
+
     amount = window.web3.utils.toWei(amount.toString(), "Ether");
-    const woolcontract =new window.web3.eth.Contract(wool.abi, config.wool)
+    const woolcontract = new window.web3.eth.Contract(wool.abi, config.wool)
     woolcontract.methods
-    .approve(config.sheepnapDAO,'100' )
-    .send(item)
-    .then(()=>{
-      alert('permission for the right contract')
-      const sheepnapcontract =new window.web3.eth.Contract(sheepnap.abi,config.sheepnapDAO)
-      sheepnapcontract.methods
-     .mintForBuy(badge.code)
-     .send(item)
-    })
+      .approve(config.sheepnapDAO, '100')
+      .send(item)
+      .then(() => {
+        alert('permission for the right contract')
+        const sheepnapcontract = new window.web3.eth.Contract(sheepnap.abi, config.sheepnapDAO)
+        sheepnapcontract.methods
+          .mintForBuy(badge.code)
+          .send(item)
+      })
   }
 
-    return (<div>
+  return (
+    <div className="badge-card">
+      <div className="badge-card-image"><img src="https://okdiario.com/img/2020/01/22/ovejas.jpg" alt="" /></div>
+      <div className="badge-card-info">
         <div>
-            <b>{ badge.name }</b>
+          <div className="badge-card-name">{ badge.name }</div>
+          <div className="badge-card-code">{ badge.code }</div>
         </div>
-        <img src={badge.src} />
         <div>
-            { badge.description }
+          <div className="badge-card-price">$96.00</div>
+          <div className="badge-card-desc">Califico</div>
         </div>
-
-        <button onClick={()=>{
-          transferBadge()
-        }}
-        >Buy</button>
-        <hr/>
-        
-    </div>)
+      </div>
+      <button onClick={()=>{ transferBadge() }} >Buy</button>
+    </div>
+  )
 }
 
 export default BadgeCard;

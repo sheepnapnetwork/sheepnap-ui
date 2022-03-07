@@ -14,6 +14,8 @@ function BadgesPage() {
             .then(data => { setBadges(data); });
     }, []);
 
+    
+
     return (
         <div>
             <div className="badge-header">
@@ -24,66 +26,9 @@ function BadgesPage() {
             <div>
             </div>
             <div className="container proposal-container">
-                <div className="badge-card">
-                    <div className="badge-card-image"><img src="https://okdiario.com/img/2020/01/22/ovejas.jpg" alt="" /></div>
-                    <div className="badge-card-info">
-                        <div>
-                            <div className="badge-card-name">Isignia por servicio</div>
-                            <div className="badge-card-code">#3332</div>
-                        </div>
-                        <div>
-                            <div className="badge-card-price">$96.00</div>
-                            <div className="badge-card-desc">Califico</div>
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div className="badge-card">
-                    <div className="badge-card-image"><img src="https://okdiario.com/img/2020/01/22/ovejas.jpg" alt="" /></div>
-                    <div className="badge-card-info">
-                        <div>
-                            <div className="badge-card-name">Isignia por servicio</div>
-                            <div className="badge-card-code">#3332</div>
-                        </div>
-                        <div>
-                            <div className="badge-card-price">$96.00</div>
-                            <div className="badge-card-desc">Califico</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="badge-card">
-                    <div className="badge-card-image"><img src="https://okdiario.com/img/2020/01/22/ovejas.jpg" alt="" /></div>
-                    <div className="badge-card-info">
-                        <div>
-                            <div className="badge-card-name">Isignia por servicio</div>
-                            <div className="badge-card-code">#3332</div>
-                        </div>
-                        <div>
-                            <div className="badge-card-price">$96.00</div>
-                            <div className="badge-card-desc">Califico</div>
-                        </div>
-                    </div>
-
-                </div>
-                <div className="badge-card">
-                    <div className="badge-card-image"><img src="https://sheepnap.network/img/header.png" alt="" /></div>
-                    <div className="badge-card-info">
-                        <div>
-                            <div className="badge-card-name">Isignia por servicio</div>
-                            <div className="badge-card-code">#3332</div>
-                        </div>
-                        <div>
-                            <div className="badge-card-price">$96.00</div>
-                            <div className="badge-card-desc">Califico</div>
-                        </div>
-                    </div>
-                </div>
-
                 {badges.map(bg => <BadgeCard badge={bg} />)}
             </div>
+            
         </div>)
 }
 
