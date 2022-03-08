@@ -16,8 +16,9 @@ import InfoPage from "./Routes/InfoPage";
 
 import MyPropertiesPage from "./Routes/MyPropertiesPage";
 import HomePage from "./Routes/HomePage";
-import MyPropertyDashboard from "./Components/MyPropertyDashboard";
 import ApprovalRequestCreatePage from "./Routes/ApprovalRequestCreatePage";
+import MyPropertyDashboardPage from "./Routes/MyPropertyDashboardPage";
+import AvailabilityPage from "./Routes/AvailabilityPage";
 
 export default function App() {
 
@@ -42,8 +43,9 @@ export default function App() {
         <Route path="mybookens" element={<MyBookens />} />
                 
         <Route path="property">
+          <Route path="availability/:propertyaddress" element={<AvailabilityPage wallet={wallet} />} />
           <Route path="detail/:propertyaddress" element={<PropertyDetailPage />} />
-          <Route path="dashboard" element={<MyPropertyDashboard />} />
+          <Route path="dashboard/:propertyaddress" element={<MyPropertyDashboardPage wallet={wallet} />} />
           <Route path="bookens" element={<EmitBookenPage />} />
           <Route path="create" element={<PropertyCreatePage wallet={wallet}/>} />
           <Route path="myproperties" element={<MyPropertiesPage wallet={wallet}/>} />

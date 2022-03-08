@@ -6,7 +6,7 @@ import config from "../config.json";
 
 
 function SearchPage() {
-
+    
     const [properties, setProperties] = useState([]);
 
     useEffect(() => 

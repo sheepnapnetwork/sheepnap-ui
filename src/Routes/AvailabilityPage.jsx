@@ -3,32 +3,47 @@ import { useEffect } from "react";
 
 function AvailabilityPage({ wallet })
 {
-    const [approvalRequests, setApprovalRequests] = useState([]);
-    let { propertyAddress,  } = useParams();
+    const [roomTypes, setRoomTypes] = useState([]);
+    
+    useEffect(() => 
+    {
+        //TODO: get room types from contract
+        
+        setRoomTypes();
+
+    }, [wallet]);
 
     useEffect(() => 
     {
-        fetch(config.endpoint + 'approvalrequest/approvalrequests')
-        .then(response => response.json())
-        .then(data => { setApprovalRequests(data); });
-    }, []);
+        //TODO: get already emited NFT
 
-    useEffect(() => 
-    {
-        fetch(config.endpoint + '/nft/')
-        .then(response => response.json())
-        .then(data => { setApprovalRequests(data); });
+    }, [wallet]);
 
-    }, []);
 
     return (
     <div className="container">
-        <h1>Approval requests</h1>
+        <h1>Availability Page</h1>
 
-        <div className="proposal-container">
-            { approvalRequests.map(rq => <ApprovaRequestCard approvalRequest={rq}/>) }
-        </div>
+
+        <h3>Room Types</h3>
+        <table>
+            <tr>
+                <td>
+                    RoomTypes :
+                </td>
+                <td>
+                    { roomTypes.length > 0 ? roomTypes : "Loading" }
+                </td>
+            </tr>
+        </table>
+
+
+        <table>
+            <tr>
+                
+            </tr>
+        </table>
     </div>)
 }
 
-export default ApprovalRequestPage;
+export default AvailabilityPage;
