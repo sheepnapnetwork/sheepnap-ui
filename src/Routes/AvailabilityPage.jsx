@@ -1,17 +1,29 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
+import config from "../config.json"
+import {useParams} from 'react-router-dom';
+import RoomTypeCard from "../Components/RoomtypesCard"
+
 
 function AvailabilityPage({ wallet })
 {
     const [roomTypes, setRoomTypes] = useState([]);
-    
+    const { propertyaddress } = useParams();
+
     useEffect(() => 
     {
-        //TODO: get room types from contract
+        fetch(config.endpoint + 'roomType/roomType/'+ propertyaddress)
+        .then(response => response.json())
+        .then(data => { console.log(data); setRoomTypes(data); });
+        console.log(propertyaddress)
+    }, []);
+    // useEffect(() => 
+    // {
+    //     //TODO: get room types from contract
         
-        setRoomTypes();
+    //     setRoomTypes();
 
-    }, [wallet]);
+    // }, [wallet]);
 
     useEffect(() => 
     {
@@ -32,7 +44,8 @@ function AvailabilityPage({ wallet })
                     RoomTypes :
                 </td>
                 <td>
-                    { roomTypes.length > 0 ? roomTypes : "Loading" }
+                {wallet !== "" ? roomTypes.map(roomtype => <RoomTypeCard roomtype={roomtype} />): (<h1>Don't have any roomtype</h1>)}
+                    {/* { roomTypes.length > 0 ? roomTypes : "Loading" } */}
                 </td>
             </tr>
         </table>
