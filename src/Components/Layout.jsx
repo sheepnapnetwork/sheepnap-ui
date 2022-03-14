@@ -50,7 +50,7 @@ function Layout({ wallet, setWallet, balance, setBalance }) {
                         <img src={wool} alt="" />
                     </span>
                     <div>{wallet}</div>
-                    <div>{balance}</div>
+                    <div>${balance}</div>
                     <button onClick={connect}>Connect metamask wallet</button>
                 </div>
             </div>
